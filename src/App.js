@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import LandingPage from './components/landing/LandingPage';
+import SignUp from './features/signup/SignUp';
+import SignIn from './features/signin/SignIn';
+import VotingPage from './features/voting/Voting';
+
+// import Prefetch from './features/auth/Prefetch';
+// import PersistLogin from './features/auth/PersistLogin';
+// import RequireAuth from './features/auth/RequireAuth';
+// import { ROLES } from './config/roles';
+
+import {Routes, Route, Navigate} from 'react-router-dom';
+import useTitle from './hooks/useTitle';
+
 
 function App() {
+  useTitle('Electoral Voting App');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+    <Routes>
+      <Route path='/' element={<LandingPage />}></Route>
+      <Route path='/signup' element= {<SignUp />}></Route>
+      <Route path='/signin' element= {<SignIn />}></Route>
+      <Route path='/vote' element={<VotingPage />}></Route>
+
+      {/* <Route element={<PersistLogin />}>
+        <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+          <Route element={<Prefetch />}>
+
+            <Route path='/vote' element={<VotingPage />}></Route>
+
+            // <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            //   <Route path='administrator/settings/details'></Route>
+            // </Route>
+
+          </Route>
+        </Route>
+      </Route> */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 
